@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29911.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixedAdressOfAnalyzer", "Analyzer1\Analyzer1\FixedAdressOfAnalyzer.csproj", "{C5E0845B-2625-474F-A9D5-D9FB36B6E9AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixedAdressOfAnalyzer", "FixedAdressOfAnalyzer\FixedAdressOfAnalyzer\FixedAdressOfAnalyzer.csproj", "{C5E0845B-2625-474F-A9D5-D9FB36B6E9AA}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixedAdressOfAnalyzer.Test", "Analyzer1\Analyzer1.Test\FixedAdressOfAnalyzer.Test.csproj", "{66544EFB-496A-4892-A622-978E5460360C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FixedAdressOfAnalyzer.Test", "FixedAdressOfAnalyzer\FixedAdressOfAnalyzer.Test\FixedAdressOfAnalyzer.Test.csproj", "{66544EFB-496A-4892-A622-978E5460360C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixedAdressOfAnalyzer.Vsix", "Analyzer1\Analyzer1.Vsix\FixedAdressOfAnalyzer.Vsix.csproj", "{85E09C16-553B-4503-8314-196465E1FDCA}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixedAdressOfAnalyzer.Vsix", "FixedAdressOfAnalyzer\FixedAdressOfAnalyzer.Vsix\FixedAdressOfAnalyzer.Vsix.csproj", "{85E09C16-553B-4503-8314-196465E1FDCA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
