@@ -54,7 +54,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Analyzer1\FixedAdressOfAnalyzer.csproj">
+    <ProjectReference Include="..\FixedAdressOfAnalyzer\FixedAdressOfAnalyzer.csproj">
       <Project>{C5E0845B-2625-474F-A9D5-D9FB36B6E9AA}</Project>
       <Name>FixedAdressOfAnalyzer</Name>
     </ProjectReference>

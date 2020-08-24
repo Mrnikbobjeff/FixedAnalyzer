@@ -1,9 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -30,32 +26,17 @@ namespace FixedAdressOfAnalyzer
             context.RegisterSyntaxNodeAction(AnalyzeSymbol, SyntaxKind.FixedStatement);
         }
 
-        static T FindParentOfType<T>(SyntaxNode node) where T : class
-        {
-            var parent = node.Parent;
-            do
-            {
-                if (parent is T)
-                    return parent as T;
-                node = parent;
-                parent = node.Parent;
-            } while (parent != null);
-            return null;
-        }
-
-        unsafe void x() { var b = new byte[1]; fixed (byte* ptr = b) { } }
-        unsafe void y() { var b = new byte[1]; fixed (byte* ptr = &b[0]) { } }
-
         private static void AnalyzeSymbol(SyntaxNodeAnalysisContext context)
         {
             var fixedStatement = context.Node as FixedStatementSyntax;
-            if (fixedStatement.Declaration.Variables.First().Initializer.Value is PrefixUnaryExpressionSyntax prefix && prefix.Kind() == SyntaxKind.AddressOfExpression)
+            if (fixedStatement.Declaration.Variables.All(x => x.Initializer.Value is PrefixUnaryExpressionSyntax prefix && prefix.Kind() == SyntaxKind.AddressOfExpression))
                 return; // Already using efficient check.
-            //var type = context.SemanticModel.GetTypeInfo(context.Node);
-            //var mdec = FindParentOfType<MethodDeclarationSyntax>(context.Node).Body.Statements.FirstOrDefault();
-            //var flow = context.SemanticModel.AnalyzeDataFlow(mdec, fixedStatement);
-            var diagnostics = Diagnostic.Create(Rule, fixedStatement.GetLocation());
-            context.ReportDiagnostic(diagnostics);
+            var diagnosticsToCreate = fixedStatement.Declaration.Variables.Where(x => !(x.Initializer.Value is PrefixUnaryExpressionSyntax prefix && prefix.Kind() == SyntaxKind.AddressOfExpression) && context.SemanticModel.GetTypeInfo(x.Initializer.Value).Type.TypeKind == TypeKind.Array); //Last check may be redundant, non Array types are always prefixed with AdressOfOperator
+                var diagnostics = diagnosticsToCreate.Select(dec => Diagnostic.Create(Rule, dec.GetLocation()));
+            foreach(var d in diagnostics)
+            {
+                context.ReportDiagnostic(d);
+            }
         }
     }
 }
