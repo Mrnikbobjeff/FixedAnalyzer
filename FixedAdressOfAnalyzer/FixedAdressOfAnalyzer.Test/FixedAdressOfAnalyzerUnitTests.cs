@@ -91,6 +91,23 @@ class TestStruct {public TestStruct(byte x) { b = x;}public byte b;}
             VerifyCSharpDiagnostic(test);
         }
 
+
+        [TestMethod]
+        public void FixedDeclaration_StaticFixed()
+        {
+            var test = @"
+using System;
+
+namespace ConsoleApplication1
+{
+    class TypeName
+    {
+unsafe Struct TestStruct {public fixed byte b;}
+    }
+}";
+            VerifyCSharpDiagnostic(test);
+        }
+
         [TestMethod]
         public void TwoFixedVariableDeclarations_TwoFixes()
         {
